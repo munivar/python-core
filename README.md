@@ -80,7 +80,7 @@ alembic revision --autogenerate -m "initial-report"
 alembic upgrade head
 ```
 
-9. for starting api
+12. for starting api
 ```bash
 uvicorn app.main:app --reload
 ```
