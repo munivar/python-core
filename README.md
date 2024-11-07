@@ -1,6 +1,6 @@
 # Project Description
 - Example of Project Stucture, APIs, Database Connection
-- Create Tables using Alembic
+- Create and Update Database Tables using Alembic
 
 ### ALEMBIC | REST API - Python, FastAPI
 - Python - 3.12.7
