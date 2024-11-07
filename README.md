@@ -23,13 +23,16 @@ python -m venv myenv
 ```
 
 4. create database in pgAdmin
+```bash
+pgAdmin -> PostgresSQL 17 -> Databases -> Create -> Database -> (Your Database Name)
+```
 
 5. uncomment this below line
 ```bash
 user_schema.Base.metadata.create_all(bind=engine)
 ```
 
-5. for starting api
+6. for starting api
 ```bash
 uvicorn main:app --reload
 ```
