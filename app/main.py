@@ -8,7 +8,7 @@ from app.database import engine
 from app.core.logger import logger
 
 # Create all tables for the first time
-# user_schema.Base.metadata.create_all(bind=engine)
+user_schema.Base.metadata.create_all(bind=engine)
 # demo_schema.Base.metadata.create_all(bind=engine)
 
 # Initialize FastAPI app
