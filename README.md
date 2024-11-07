@@ -11,8 +11,6 @@
 
 1. setup initial project
 
-**Create a Virtual Envioronment**
-
 2. create virtual envioronment (Do this if require)
 ```bash
 python -m venv myenv
@@ -24,7 +22,7 @@ python -m venv myenv
 
 4. create database in pgAdmin
 ```bash
-pgAdmin -> PostgresSQL 17 -> Databases -> Create -> Database -> (Your Database Name)
+pgAdmin 4 -> PostgresSQL 17 -> Databases -> Create -> Database -> (Your Database Name)
 ```
 
 5. uncomment this below line
