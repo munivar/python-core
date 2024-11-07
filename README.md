@@ -7,27 +7,29 @@
 - Video URL - https://www.youtube.com/watch?v=398DuQbQJq0
 
 
-### Command that use in this Projects
+### Usage (Command and Steps)
 
-- setup initial project
+1. setup initial project
 
 **Create a Virtual Envioronment**
 
-- create virtual envioronment (Do this if require)
+2. create virtual envioronment (Do this if require)
 ```bash
 python -m venv myenv
 ```
-- activate the envioronment (Do this if require)
+3. activate the envioronment (Do this if require)
 ```bash
 .\myenv\Scripts\activate
 ```
 
-- create database in pgAdmin
+4. create database in pgAdmin
 
-// uncomment this below line
-- user_schema.Base.metadata.create_all(bind=engine)
+5. uncomment this below line
+```bash
+user_schema.Base.metadata.create_all(bind=engine)
+```
 
-// for starting api
+5. for starting api
 ```bash
 uvicorn main:app --reload
 ```
