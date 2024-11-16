@@ -1,25 +1,55 @@
 import datetime
 import gspread
 from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+from googleapiclient.http import MediaFileUpload
 
 # Define the scope
 scopes = [
-    "https://www.googleapis.com/auth/spreadsheets",
+    # "https://www.googleapis.com/auth/spreadsheets",
     # "https://www.googleapis.com/auth/drive",
+    "https://www.googleapis.com/auth/drive.file",
 ]
+
 
 # Add your credentials to the account
 cred = Credentials.from_service_account_file("sheet_cred.json", scopes=scopes)
 
-# Authorize the clientsheet
-client = gspread.authorize(cred)
+service = build("drive", "v3", credentials=cred)
 
-# Get the instance of the Spreadsheet
-sheet_id = "1V3CGH3ACZbWHY65KOCstC54JJEf3YTMeqYzoYj6EBP8"
-main_sheet = client.open_by_key(sheet_id)
+file_id = "1TuAe3vRxRHNDavd1DNSo9R9cHlFPhWP8"
+file_name = "screenshot.png"
 
-# Get all worksheets
-# worksheet_list = sheet.worksheets()
+# File metadata and file path
+media = MediaFileUpload(file_name, resumable=True)
+
+file_metadata = {"name": file_name, "parents": [file_id]}
+
+# Upload the file
+uploaded_file = service.files().create(body=file_metadata, media_body=media).execute()
+file_id = uploaded_file.get("id")
+
+print(file_id)
+
+
+# Define the scope
+# scopes = [
+#     "https://www.googleapis.com/auth/spreadsheets",
+#     # "https://www.googleapis.com/auth/drive",
+# ]
+
+# # Add your credentials to the account
+# cred = Credentials.from_service_account_file("sheet_cred.json", scopes=scopes)
+
+# # Authorize the clientsheet
+# client = gspread.authorize(cred)
+
+# # Get the instance of the Spreadsheet
+# sheet_id = "1V3CGH3ACZbWHY65KOCstC54JJEf3YTMeqYzoYj6EBP8"
+# main_sheet = client.open_by_key(sheet_id)
+
+# # Get all worksheets
+# worksheet_list = main_sheet.worksheets()
 # print(worksheet_list)
 
 # Extract and print all of the values
@@ -69,8 +99,8 @@ main_sheet = client.open_by_key(sheet_id)
 # /////////////////////////////////////////////////////////////////////////////////
 
 # Get the sheet of the Spreadsheet
-sh = main_sheet.worksheet("users")
-print(sh)
+# sh = main_sheet.worksheet("users")
+# print(sh)
 
 
 # def user_exists(uid):
@@ -182,7 +212,3 @@ print(sh)
 
 # //////////////////////////////////////////////////////////////////////////////////////
 # //////////////////////////////////////////////////////////////////////////////////////
-
-# Get the sheet of the Spreadsheet
-# sh = main_sheet.worksheet("users")
-# print(sh)
