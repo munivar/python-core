@@ -38,7 +38,7 @@ python -m venv myenv
 
 5. Update the Google Drive and Google Sheet Access Rights as per requirement
 
-6. for starting api
+6. for start test
 ```bash
 python test_sheet.py
 ```
