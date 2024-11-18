@@ -1,4 +1,3 @@
-import datetime
 import gspread
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
@@ -33,28 +32,24 @@ print("file_id =>", str(file_id))
 
 
 # Define the scope
-# scopes = [
-#     "https://www.googleapis.com/auth/spreadsheets",
-#     # "https://www.googleapis.com/auth/drive",
-# ]
+scopes = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    # "https://www.googleapis.com/auth/drive",
+]
 
-# # Add your credentials to the account
-# cred = Credentials.from_service_account_file("sheet_cred.json", scopes=scopes)
+# Add your credentials to the account
+cred = Credentials.from_service_account_file("gcloud_cred.json", scopes=scopes)
 
-# # Authorize the clientsheet
-# client = gspread.authorize(cred)
+# Authorize the clientsheet
+client = gspread.authorize(cred)
 
-# # Get the instance of the Spreadsheet
-# sheet_id = "1V3CGH3ACZbWHY65KOCstC54JJEf3YTMeqYzoYj6EBP8"
-# main_sheet = client.open_by_key(sheet_id)
+# Get the instance of the Spreadsheet
+sheet_id = "1V3CGH3ACZbWHY65KOCstC54JJEf3YTMeqYzoYj6EBP8"
+main_sheet = client.open_by_key(sheet_id)
 
-# # Get all worksheets
-# worksheet_list = main_sheet.worksheets()
-# print(worksheet_list)
-
-# Extract and print all of the values
-# data = sheet.get_all_records()
-# print(data)
+# Get all worksheets
+worksheet_list = main_sheet.worksheets()
+print(worksheet_list)
 
 # Get the first sheet of the Spreadsheet
 # sh = main_sheet.sheet1
