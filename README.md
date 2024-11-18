@@ -36,7 +36,7 @@ python -m venv myenv
 
 4. Watch Video and Create Service Account and Project
 
-5. Update the Google Drive and Google Sheet as per requirement
+5. Update the Google Drive and Google Sheet Access Rights as per requirement
 
 6. for starting api
 ```bash
