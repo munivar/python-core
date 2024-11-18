@@ -13,7 +13,7 @@ scopes = [
 
 
 # Add your credentials to the account
-cred = Credentials.from_service_account_file("sheet_cred.json", scopes=scopes)
+cred = Credentials.from_service_account_file("gcloud_cred.json", scopes=scopes)
 
 service = build("drive", "v3", credentials=cred)
 
@@ -29,7 +29,7 @@ file_metadata = {"name": file_name, "parents": [file_id]}
 uploaded_file = service.files().create(body=file_metadata, media_body=media).execute()
 file_id = uploaded_file.get("id")
 
-print(file_id)
+print("file_id =>", str(file_id))
 
 
 # Define the scope
