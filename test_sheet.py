@@ -4,11 +4,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 
 # Define the scope
-scopes = [
-    # "https://www.googleapis.com/auth/spreadsheets",
-    # "https://www.googleapis.com/auth/drive",
-    "https://www.googleapis.com/auth/drive.file",
-]
+scopes = ["https://www.googleapis.com/auth/drive"]
 
 
 # Add your credentials to the account
@@ -16,40 +12,64 @@ cred = Credentials.from_service_account_file("gcloud_cred.json", scopes=scopes)
 
 service = build("drive", "v3", credentials=cred)
 
-file_id = "1TuAe3vRxRHNDavd1DNSo9R9cHlFPhWP8"
-file_name = "screenshot.png"
 
-# File metadata and file path
-media = MediaFileUpload(file_name, resumable=True)
+# def upload_file():
+#     file_id = "1TuAe3vRxRHNDavd1DNSo9R9cHlFPhWP8"
+#     file_name = "screenshot.png"
 
-file_metadata = {"name": file_name, "parents": [file_id]}
+#     # File metadata and file path
+#     media = MediaFileUpload(file_name, resumable=True)
 
-# Upload the file
-uploaded_file = service.files().create(body=file_metadata, media_body=media).execute()
-file_id = uploaded_file.get("id")
+#     file_metadata = {"name": file_name, "parents": [file_id]}
 
-print("file_id =>", str(file_id))
+#     # Upload the file
+#     uploaded_file = (
+#         service.files().create(body=file_metadata, media_body=media).execute()
+#     )
+#     file_id = uploaded_file.get("id")
+
+#     print("file_id =>", str(file_id))
+
+
+def list_files_in_folder(service, folder_id):
+    query = f"'{folder_id}' in parents"
+    results = (
+        service.files().list(q=query, fields="nextPageToken, files(id, name)").execute()
+    )
+    items = results.get("files", [])
+
+    if not items:
+        print("No files found.")
+    else:
+        print("Files:")
+        for item in items:
+            print(f"{item['name']} ({item['id']})")
+
+
+folder_id = "1TuAe3vRxRHNDavd1DNSo9R9cHlFPhWP8"
+list_files_in_folder(service, folder_id)
+
+
+###################################################################################
+###################################################################################
 
 
 # Define the scope
-scopes = [
-    "https://www.googleapis.com/auth/spreadsheets",
-    # "https://www.googleapis.com/auth/drive",
-]
+# scopes = ["https://www.googleapis.com/auth/spreadsheets"]
 
-# Add your credentials to the account
-cred = Credentials.from_service_account_file("gcloud_cred.json", scopes=scopes)
+# # Add your credentials to the account
+# cred = Credentials.from_service_account_file("gcloud_cred.json", scopes=scopes)
 
-# Authorize the clientsheet
-client = gspread.authorize(cred)
+# # Authorize the clientsheet
+# client = gspread.authorize(cred)
 
-# Get the instance of the Spreadsheet
-sheet_id = "1V3CGH3ACZbWHY65KOCstC54JJEf3YTMeqYzoYj6EBP8"
-main_sheet = client.open_by_key(sheet_id)
+# # Get the instance of the Spreadsheet
+# sheet_id = "1V3CGH3ACZbWHY65KOCstC54JJEf3YTMeqYzoYj6EBP8"
+# main_sheet = client.open_by_key(sheet_id)
 
-# Get all worksheets
-worksheet_list = main_sheet.worksheets()
-print(worksheet_list)
+# # Get all worksheets
+# worksheet_list = main_sheet.worksheets()
+# print(worksheet_list)
 
 # Get the first sheet of the Spreadsheet
 # sh = main_sheet.sheet1
@@ -203,7 +223,3 @@ print(worksheet_list)
 
 # # Delete the user
 # delete_user(uid_to_delete)
-
-
-# //////////////////////////////////////////////////////////////////////////////////////
-# //////////////////////////////////////////////////////////////////////////////////////
