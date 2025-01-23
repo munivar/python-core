@@ -13,42 +13,41 @@ cred = Credentials.from_service_account_file("gcloud_cred.json", scopes=scopes)
 service = build("drive", "v3", credentials=cred)
 
 
-# def list_files_in_folder(service, folder_id):
-#     query = f"'{folder_id}' in parents"
-#     results = (
-#         service.files().list(q=query, fields="nextPageToken, files(id, name)").execute()
-#     )
-#     items = results.get("files", [])
-
-#     if not items:
-#         print("No files found.")
-#     else:
-#         print("Files:")
-#         for item in items:
-#             print(f"{item['name']} ({item['id']})")
-
-
-# # folder_id = "1TuAe3vRxRHNDavd1DNSo9R9cHlFPhWP8"
-# folder_id = "1QF1ELtRR1CSEzA1-6mU7Yj9IzIxbAQFm"
-# list_files_in_folder(service, folder_id)
-
-
-def get_file_id(service, folder_id, file_name):
-    query = f"'{folder_id}' in parents and name = '{file_name}'"
-    results = service.files().list(q=query, fields="nextPageToken, files(id)").execute()
+def list_files_in_folder(service, folder_id):
+    query = f"'{folder_id}' in parents"
+    results = (
+        service.files().list(q=query, fields="nextPageToken, files(id, name)").execute()
+    )
     items = results.get("files", [])
 
     if not items:
-        print("No files found with given name.")
-        return None
+        print("No files found.")
     else:
-        return items[0]["id"]
+        print("Files:")
+        for item in items:
+            print(f"{item['name']} ({item['id']})")
 
 
-folder_id = "1QF1ELtRR1CSEzA1-6mU7Yj9IzIxbAQFm"
-file_name = "48860.jpg"
-file_id = get_file_id(service, folder_id, file_name)
-print(f"file id of {file_name} is {file_id}")
+folder_id = "1TuAe3vRxRHNDavd1DNSo9R9cHlFPhWP8"
+list_files_in_folder(service, folder_id)
+
+
+# def get_file_id(service, folder_id, file_name):
+#     query = f"'{folder_id}' in parents and name = '{file_name}'"
+#     results = service.files().list(q=query, fields="nextPageToken, files(id)").execute()
+#     items = results.get("files", [])
+
+#     if not items:
+#         print("No files found with given name.")
+#         return None
+#     else:
+#         return items[0]["id"]
+
+
+# folder_id = "1QF1ELtRR1CSEzA1-6mU7Yj9IzIxbAQFm"
+# file_name = "48860.jpg"
+# file_id = get_file_id(service, folder_id, file_name)
+# print(f"file id of {file_name} is {file_id}")
 
 # 1m-FuNabtTdYXVnAT1gPQbueHHzvH99gC
 
